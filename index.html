@@ -5,17 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEXIA — Next Innovation Axis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg:    #ffffff;
-  --ink:   #0b1d35;
-  --blue:  #1a56a0;
-  --muted: #9aa3ae;
-  --rule:  rgba(11, 29, 53, 0.09);
-  --light: #f0f2f5;
+  --bg:     #ffffff;
+  --ink:    #0f172a;
+  --blue:   #2563eb;
+  --blue2:  #1d4ed8;
+  --muted:  #64748b;
+  --light:  #eff6ff;
+  --border: rgba(15, 23, 42, 0.08);
+  --radius: 12px;
 }
 
 html { scroll-behavior: smooth; }
@@ -24,288 +26,410 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   overflow-x: hidden;
   line-height: 1;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── NAV ── */
+/* ─── NAV ─── */
 nav {
-  position: sticky; top: 0; z-index: 100;
-  padding: 1.3rem 2.5rem;
+  position: sticky; top: 0; z-index: 200;
+  height: 68px;
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 0.5px solid var(--rule);
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: 0 2.5rem;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
 }
-.logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem; letter-spacing: 0.22em;
+.nav-logo {
+  font-size: 1.05rem; font-weight: 700; letter-spacing: 0.18em;
   color: var(--ink); text-decoration: none;
 }
-.nav-tag {
-  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--muted);
+.nav-logo span { color: var(--blue); }
+.nav-center {
+  font-size: 0.7rem; font-weight: 400; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
 }
-.nav-r { display: flex; gap: 2rem; }
-.nav-r a {
-  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a {
+  font-size: 0.8rem; font-weight: 400;
   color: var(--muted); text-decoration: none; transition: color .2s;
 }
-.nav-r a:hover { color: var(--ink); }
+.nav-links a:hover { color: var(--ink); }
+.nav-contact {
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--blue); text-decoration: none;
+  border: 1.5px solid var(--blue);
+  padding: .45rem 1.1rem; border-radius: 6px;
+  transition: background .2s, color .2s;
+}
+.nav-contact:hover { background: var(--blue); color: #fff; }
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 1.5px; background: var(--ink);
+  transition: all .3s;
+}
 
-/* ── HERO ── */
+/* ─── HERO ─── */
 .hero {
-  min-height: 88vh;
+  min-height: calc(100vh - 68px);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  padding: 5rem 2.5rem;
-  border-bottom: 0.5px solid var(--rule);
+  padding: 5rem 1.5rem 4rem;
+  border-bottom: 1px solid var(--border);
 }
-.hero-eyebrow {
-  font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 1.75rem; font-weight: 500;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--blue);
+  background: var(--light); border-radius: 999px;
+  padding: .4rem 1rem; margin-bottom: 2.2rem;
+}
+.hero-badge::before {
+  content: ''; display: block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue);
 }
 .hero-wordmark {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 14vw, 10rem);
-  letter-spacing: 0.1em; line-height: 0.9;
-  color: var(--ink); margin-bottom: 2rem;
+  font-size: clamp(4.5rem, 13vw, 9.5rem);
+  font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  color: var(--ink); margin-bottom: 1.75rem;
 }
 .hero-wordmark span { color: var(--blue); }
 .hero-heading {
-  font-size: clamp(1rem, 2.2vw, 1.35rem);
-  font-weight: 400; line-height: 1.65;
-  color: var(--ink); margin-bottom: 1rem;
-  letter-spacing: 0.02em;
+  font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+  font-weight: 500; line-height: 1.6;
+  color: var(--ink); margin-bottom: 1.1rem; letter-spacing: 0.01em;
 }
 .hero-sub {
-  font-size: 0.82rem; line-height: 1.8; color: var(--muted);
-  max-width: 500px; margin: 0 auto 2.5rem;
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  font-weight: 300; line-height: 1.8; color: var(--muted);
+  max-width: 520px; margin: 0 auto 2.8rem;
 }
 .hero-btn {
-  display: inline-flex; align-items: center; gap: .55rem;
-  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em;
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
   color: var(--ink);
   background: var(--light);
   border-radius: 999px;
-  padding: .75rem 1.5rem; text-decoration: none;
-  transition: background .2s;
+  padding: .85rem 1.8rem; text-decoration: none;
+  transition: background .2s, color .2s;
 }
-.hero-btn::before { content: '●'; font-size: .45rem; color: var(--blue); }
-.hero-btn:hover { background: #e4e7ec; }
+.hero-btn::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue); flex-shrink: 0;
+}
+.hero-btn:hover { background: #dbeafe; }
 
-/* ── TICKER ── */
+/* ─── TICKER ─── */
 .ticker {
-  border-bottom: 0.5px solid var(--rule);
-  padding: .8rem 0; overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  padding: .95rem 0; overflow: hidden; background: #f8fafc;
 }
 .ticker-track {
-  display: flex; gap: 2.5rem;
-  animation: tick 26s linear infinite;
+  display: flex; gap: 3rem;
+  animation: tick 28s linear infinite;
   white-space: nowrap;
 }
-@keyframes tick {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .ticker-item {
-  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--muted); flex-shrink: 0;
+  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); flex-shrink: 0;
 }
 .ticker-dot {
-  width: 3px; height: 3px; border-radius: 50%;
-  background: #d0d5dc; align-self: center; flex-shrink: 0;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: #cbd5e1; align-self: center; flex-shrink: 0;
 }
 
-/* ── MISSION ── */
+/* ─── MISSION ─── */
 .mission {
   display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 0.5px solid var(--rule);
+  border-bottom: 1px solid var(--border);
 }
 .mission-l {
-  padding: 5.5rem 2.5rem;
-  border-right: 0.5px solid var(--rule);
+  padding: 5rem 3rem;
+  background: #f8fafc;
+  border-right: 1px solid var(--border);
   display: flex; flex-direction: column; justify-content: space-between;
 }
 .mission-r {
-  padding: 5.5rem 3rem;
-  display: flex; flex-direction: column; justify-content: center; gap: 1.75rem;
+  padding: 5rem 3.5rem;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;
 }
-.sec-tag {
-  font-size: 0.57rem; letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--muted);
+.sec-eyebrow {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--blue);
 }
 .mission-big {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 7.5rem; letter-spacing: 0; line-height: 1;
-  color: rgba(11,29,53,0.04); margin-top: auto; padding-top: 2rem;
+  font-size: clamp(4rem, 10vw, 7rem); font-weight: 700;
+  letter-spacing: 0; line-height: 1;
+  color: rgba(15,23,42,0.04); margin-top: auto; padding-top: 2rem;
 }
 .mission-heading {
-  font-family: 'DM Serif Display', serif;
-  font-size: 2.4rem; line-height: 1.22; font-style: italic;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 500; line-height: 1.35;
   color: var(--ink);
 }
-.mission-body { font-size: 0.86rem; line-height: 2; color: #4e5c6e; max-width: 500px; }
+.mission-body {
+  font-size: 0.97rem; font-weight: 300; line-height: 1.9;
+  color: #475569; max-width: 480px;
+}
 
-/* ── WHAT WE DO ── */
+/* ─── WHAT WE DO ─── */
 .wwd {
   display: grid; grid-template-columns: 1fr 2fr;
-  border-bottom: 0.5px solid var(--rule);
+  border-bottom: 1px solid var(--border);
 }
-.wwd-l { padding: 5rem 2.5rem; border-right: 0.5px solid var(--rule); }
-.wwd-r { padding: 5rem 3rem; }
+.wwd-l { padding: 4.5rem 3rem; border-right: 1px solid var(--border); }
+.wwd-r { padding: 4.5rem 3.5rem; }
 .sec-label {
-  font-size: 0.57rem; letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 1.1rem; display: block;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 1.25rem; display: block;
 }
 .wwd-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.6rem; letter-spacing: 0.04em; color: var(--ink); line-height: 1;
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+  color: var(--ink); line-height: 1.3;
 }
-.wwd-body { font-size: 0.86rem; line-height: 2; color: #4e5c6e; margin-bottom: .75rem; }
-.wwd-eng { font-size: 0.7rem; letter-spacing: 0.06em; color: var(--muted); font-style: italic; }
-.pillars {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  border-top: 0.5px solid var(--rule); margin-top: 2.5rem;
+.wwd-body {
+  font-size: 0.97rem; font-weight: 300; line-height: 1.9;
+  color: #475569; margin-bottom: .6rem;
 }
-.pillar { padding: 1.5rem 1.5rem 0 0; border-right: 0.5px solid var(--rule); }
-.pillar:last-child { border-right: none; }
-.p-key {
-  font-size: 0.57rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: .5rem; display: block;
-}
-.p-title { font-size: 0.8rem; font-weight: 400; color: var(--ink); margin-bottom: .35rem; }
-.p-desc { font-size: 0.72rem; line-height: 1.7; color: var(--muted); }
-
-/* ── SERVICES ── */
-.services { border-bottom: 0.5px solid var(--rule); }
-.svc-head {
-  padding: 2.5rem 2.5rem 2rem;
-  display: flex; align-items: flex-end; justify-content: space-between;
-  border-bottom: 0.5px solid var(--rule);
-}
-.svc-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.8rem; letter-spacing: 0.04em; color: var(--ink);
-}
-.svc-note {
-  font-size: 0.57rem; letter-spacing: 0.2em; text-transform: uppercase;
+.wwd-eng {
+  font-size: 0.78rem; font-weight: 300; letter-spacing: 0.04em;
   color: var(--muted);
 }
-.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.pillars {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0; border-top: 1px solid var(--border); margin-top: 2.5rem;
+}
+.pillar { padding: 1.75rem 1.5rem 0 0; border-right: 1px solid var(--border); }
+.pillar:last-child { border-right: none; }
+.p-key {
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: .55rem; display: block;
+}
+.p-title { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: .4rem; }
+.p-desc { font-size: 0.82rem; font-weight: 300; line-height: 1.7; color: var(--muted); }
+
+/* ─── SERVICES ─── */
+.services { border-bottom: 1px solid var(--border); }
+.svc-head {
+  padding: 2.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.svc-heading {
+  font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700;
+  color: var(--ink);
+}
+.svc-note {
+  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.svc-grid { display: grid; grid-template-columns: repeat(3,1fr); }
 .svc-card {
-  padding: 2.5rem 2rem;
-  border-right: 0.5px solid var(--rule);
+  padding: 2.8rem 2.5rem;
+  border-right: 1px solid var(--border);
   transition: background .25s;
 }
 .svc-card:last-child { border-right: none; }
-.svc-card:hover { background: #fafbfc; }
+.svc-card:hover { background: #f8fafc; }
 .svc-num {
-  font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
-  color: rgba(11,29,53,.05); line-height: 1; letter-spacing: 0; margin-bottom: .35rem;
+  font-size: 3rem; font-weight: 700; letter-spacing: 0;
+  color: rgba(37,99,235,0.07); line-height: 1; margin-bottom: .5rem;
 }
 .svc-cat {
-  font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: .65rem; display: block;
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: .75rem; display: block;
 }
 .svc-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.6rem; letter-spacing: 0.04em; color: var(--ink);
-  line-height: 1; margin-bottom: .8rem;
+  font-size: 1.75rem; font-weight: 700;
+  color: var(--ink); line-height: 1.1; margin-bottom: 1rem;
 }
-.svc-rule { height: .5px; background: var(--rule); margin: 1rem 0; }
-.svc-desc { font-size: 0.76rem; line-height: 1.85; color: #4e5c6e; }
-.svc-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: 1rem; }
+.svc-rule { height: 1px; background: var(--border); margin: 1.1rem 0; }
+.svc-desc {
+  font-size: 0.88rem; font-weight: 300; line-height: 1.85; color: #475569;
+}
+.svc-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.2rem; }
 .svc-tag {
-  font-size: 0.54rem; letter-spacing: 0.1em;
-  padding: .25rem .6rem;
-  border: 0.5px solid var(--rule); color: var(--muted);
+  font-size: 0.72rem; font-weight: 400;
+  padding: .3rem .75rem;
+  background: var(--light); color: var(--blue);
+  border-radius: 999px;
 }
 
-/* ── CONTACT STRIP ── */
+/* ─── CONTACT STRIP ─── */
 .contact-strip {
   display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 0.5px solid var(--rule);
+  border-bottom: 1px solid var(--border);
 }
-.cs-l { padding: 4rem 2.5rem; border-right: 0.5px solid var(--rule); }
+.cs-l { padding: 4rem 3rem; border-right: 1px solid var(--border); }
+.cs-eyebrow {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 1rem; display: block;
+}
 .cs-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem; letter-spacing: 0.04em; color: var(--ink);
-  margin: 1rem 0 .75rem;
+  font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700;
+  color: var(--ink); line-height: 1.3; margin-bottom: 1rem;
 }
-.cs-body { font-size: 0.77rem; line-height: 1.85; color: #4e5c6e; }
+.cs-body { font-size: 0.9rem; font-weight: 300; line-height: 1.85; color: #475569; }
 .cs-r {
-  padding: 4rem 2.5rem;
-  background: var(--ink);
-  display: flex; flex-direction: column; justify-content: center; gap: .9rem;
+  padding: 4rem 3rem;
+  background: var(--blue);
+  display: flex; flex-direction: column; justify-content: center; gap: 1rem;
 }
-.cs-r-label {
-  font-size: 0.57rem; letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+.cs-r-eyebrow {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: rgba(255,255,255,0.55);
 }
 .cs-r-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem; letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.88);
+  font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700;
+  color: #fff; line-height: 1.2;
 }
-.cs-r-body { font-size: 0.77rem; line-height: 1.85; color: rgba(255,255,255,0.4); }
+.cs-r-body { font-size: 0.9rem; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,0.65); }
 .cs-r-btn {
   display: inline-flex; align-items: center; gap: .5rem;
-  font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
-  border: 0.5px solid rgba(255,255,255,0.2);
-  padding: .65rem 1.2rem; text-decoration: none; width: fit-content;
-  transition: border-color .2s, color .2s;
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--blue); background: #fff;
+  border-radius: 8px;
+  padding: .75rem 1.5rem; text-decoration: none; width: fit-content;
+  margin-top: .25rem;
+  transition: background .2s;
 }
-.cs-r-btn:hover { border-color: rgba(255,255,255,.6); color: #fff; }
+.cs-r-btn:hover { background: #dbeafe; }
 
-/* ── FOOTER ── */
+/* ─── FOOTER ─── */
 footer {
-  padding: 1.5rem 2.5rem;
+  padding: 2rem 3rem;
   display: flex; align-items: center; justify-content: space-between;
-  border-top: 0.5px solid var(--rule);
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap; gap: 1rem;
 }
 .foot-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem; letter-spacing: 0.2em; color: var(--ink);
+  font-size: 0.95rem; font-weight: 700; letter-spacing: 0.15em;
+  color: var(--ink);
 }
+.foot-logo span { color: var(--blue); }
 .foot-mid {
-  font-size: 0.57rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted);
+  font-size: 0.75rem; font-weight: 400; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
 }
-.foot-copy { font-size: 0.57rem; color: var(--muted); }
+.foot-copy { font-size: 0.75rem; font-weight: 300; color: var(--muted); }
 
-/* ── ANIMATIONS ── */
+/* ─── ANIMATIONS ─── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hero-eyebrow  { animation: fadeUp .45s ease .10s both; }
-.hero-wordmark { animation: fadeUp .60s ease .22s both; }
-.hero-heading  { animation: fadeUp .45s ease .38s both; }
-.hero-sub      { animation: fadeUp .45s ease .48s both; }
-.hero-btn      { animation: fadeUp .45s ease .58s both; }
+.hero-badge    { animation: fadeUp .4s ease .05s both; }
+.hero-wordmark { animation: fadeUp .55s ease .18s both; }
+.hero-heading  { animation: fadeUp .4s ease .32s both; }
+.hero-sub      { animation: fadeUp .4s ease .42s both; }
+.hero-btn      { animation: fadeUp .4s ease .52s both; }
+
+/* ─── RESPONSIVE ─── */
+
+/* Tablet */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-center { display: none; }
+  .nav-links { gap: 1.2rem; }
+  .nav-links a { font-size: 0.75rem; }
+
+  .mission, .wwd, .contact-strip { grid-template-columns: 1fr; }
+  .mission-l { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 2rem 2rem; }
+  .mission-r { padding: 3rem 2rem; }
+  .wwd-l { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 2rem 2rem; }
+  .wwd-r { padding: 2.5rem 2rem; }
+  .cs-l { border-right: none; border-bottom: 1px solid var(--border); }
+  .cs-r { }
+
+  .svc-grid { grid-template-columns: 1fr 1fr; }
+  .svc-card:nth-child(2) { border-right: none; }
+  .svc-card:last-child { grid-column: span 2; border-top: 1px solid var(--border); border-right: none; }
+
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .pillar:nth-child(2) { border-right: none; }
+  .pillar:last-child { grid-column: span 2; border-right: none; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1rem; }
+
+  .svc-head, .cs-l, .cs-r { padding: 2.5rem 2rem; }
+  footer { padding: 1.5rem 2rem; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .nav-contact { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero { padding: 3.5rem 1.25rem 3rem; min-height: calc(100svh - 68px); }
+  .hero-badge { font-size: 0.65rem; padding: .35rem .85rem; margin-bottom: 1.8rem; }
+  .hero-heading { font-size: 1.1rem; }
+  .hero-sub { font-size: 0.85rem; margin-bottom: 2.2rem; }
+  .hero-btn { font-size: 0.85rem; padding: .75rem 1.5rem; }
+
+  .ticker { padding: .75rem 0; }
+  .ticker-item { font-size: 0.65rem; }
+
+  .mission-l { padding: 2.5rem 1.25rem 2rem; }
+  .mission-r { padding: 2.5rem 1.25rem; }
+  .mission-heading { font-size: 1.5rem; }
+  .mission-body { font-size: 0.9rem; }
+
+  .wwd-l { padding: 2.5rem 1.25rem 2rem; }
+  .wwd-r { padding: 2rem 1.25rem; }
+  .wwd-heading { font-size: 1.5rem; }
+  .wwd-body { font-size: 0.9rem; }
+
+  .pillars { grid-template-columns: 1fr; border-top: 1px solid var(--border); }
+  .pillar { grid-column: span 1 !important; border-right: none !important; border-top: 1px solid var(--border); padding: 1.25rem 0 0; margin-top: 0; }
+  .pillar:first-child { border-top: none; }
+
+  .svc-head { padding: 2rem 1.25rem 1.5rem; flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .svc-card { border-right: none !important; grid-column: span 1 !important; border-top: 1px solid var(--border); padding: 2rem 1.25rem; }
+  .svc-card:first-child { border-top: none; }
+
+  .cs-l { padding: 2.5rem 1.25rem; }
+  .cs-r { padding: 2.5rem 1.25rem; }
+  .cs-heading { font-size: 1.4rem; }
+  .cs-r-heading { font-size: 1.4rem; }
+
+  footer { padding: 1.5rem 1.25rem; flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .foot-mid { display: none; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav>
-  <a class="logo" href="#">NEXIA</a>
-  <span class="nav-tag">Business Concept Deck</span>
-  <div class="nav-r">
+  <a class="nav-logo" href="#">N<span>E</span>XIA</a>
+  <span class="nav-center">Business Concept Deck</span>
+  <div class="nav-links">
     <a href="#mission">Mission</a>
     <a href="#services">Services</a>
     <a href="#contact">Contact</a>
+    <a class="nav-contact" href="#contact">お問い合わせ</a>
   </div>
+  <button class="nav-hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-eyebrow">Brand &amp; Business Structure</div>
+  <div class="hero-badge">Brand &amp; Business Structure</div>
   <div class="hero-wordmark">N<span>E</span>XIA</div>
   <p class="hero-heading">
     WEB・メディア・ブランド事業を横断する<br>
@@ -318,7 +442,7 @@ footer {
   <a href="#services" class="hero-btn">Next Innovation Axis</a>
 </section>
 
-<!-- TICKER -->
+<!-- ── TICKER ── -->
 <div class="ticker">
   <div class="ticker-track">
     <span class="ticker-item">Smart WEB</span><div class="ticker-dot"></div>
@@ -340,20 +464,20 @@ footer {
   </div>
 </div>
 
-<!-- MISSION -->
+<!-- ── MISSION ── -->
 <section class="mission" id="mission">
   <div class="mission-l">
-    <span class="sec-tag">Mission</span>
+    <span class="sec-eyebrow">Mission</span>
     <div class="mission-big">NEXIA</div>
   </div>
   <div class="mission-r">
-    <span class="sec-tag">私たちのミッション</span>
+    <span class="sec-eyebrow">私たちのミッション</span>
     <div class="mission-heading">次世代の価値創造の<br>軸となる存在へ。</div>
     <p class="mission-body">NEXIAは、次世代の価値創造の軸となる存在を目指します。Web制作で収益をつくり、メディアで発信力を持ち、アパレルで世界観を形にする。テクノロジーとデザインを軸に、時代に合ったサービスを展開し、人・情報・ブランドをつなぐ存在を目指しています。</p>
   </div>
 </section>
 
-<!-- WHAT WE DO -->
+<!-- ── WHAT WE DO ── -->
 <section class="wwd">
   <div class="wwd-l">
     <span class="sec-label">What We Do</span>
@@ -382,7 +506,7 @@ footer {
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- ── SERVICES ── -->
 <section class="services" id="services">
   <div class="svc-head">
     <div class="svc-heading">事業内容</div>
@@ -431,27 +555,49 @@ footer {
   </div>
 </section>
 
-<!-- CONTACT STRIP -->
+<!-- ── CONTACT STRIP ── -->
 <div class="contact-strip" id="contact">
   <div class="cs-l">
-    <span class="sec-tag">Brand Structure</span>
+    <span class="cs-eyebrow">Brand Structure</span>
     <div class="cs-heading">One Brand,<br>Multiple Businesses.</div>
     <p class="cs-body">NEXIAを親ブランドに置き、Smart WEB・TACK・Aegilを事業ブランドとして展開。将来、NEXIA株式会社に移行しても自然な構造。法人化・提携・採用にも強いブランド設計。</p>
   </div>
   <div class="cs-r">
-    <span class="cs-r-label">Contact</span>
+    <span class="cs-r-eyebrow">Contact</span>
     <div class="cs-r-heading">お問い合わせ</div>
     <p class="cs-r-body">事業提携・パートナーシップ・採用などのお問い合わせはこちらから。</p>
     <a href="mailto:hello@nexia.jp" class="cs-r-btn">メッセージを送る →</a>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="foot-logo">NEXIA</div>
+  <div class="foot-logo">N<span>E</span>XIA</div>
   <div class="foot-mid">Smart WEB · TACK · Aegil</div>
   <div class="foot-copy">© 2026 NEXIA. All Rights Reserved.</div>
 </footer>
 
+<script>
+const hamburger = document.querySelector('.nav-hamburger');
+const navLinks = document.querySelector('.nav-links');
+hamburger.addEventListener('click', () => {
+  const open = navLinks.style.display === 'flex';
+  navLinks.style.display = open ? 'none' : 'flex';
+  navLinks.style.flexDirection = 'column';
+  navLinks.style.position = 'fixed';
+  navLinks.style.top = '68px';
+  navLinks.style.left = '0';
+  navLinks.style.right = '0';
+  navLinks.style.background = 'rgba(255,255,255,0.97)';
+  navLinks.style.padding = '1.5rem 1.25rem';
+  navLinks.style.gap = '1.25rem';
+  navLinks.style.borderBottom = '1px solid rgba(15,23,42,0.08)';
+  navLinks.style.backdropFilter = 'blur(16px)';
+  navLinks.style.zIndex = '199';
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => { navLinks.style.display = 'none'; });
+});
+</script>
 </body>
 </html>
